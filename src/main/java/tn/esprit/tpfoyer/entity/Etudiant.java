@@ -2,7 +2,7 @@ package tn.esprit.tpfoyer.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.util.*;
 
 @Entity
 @Getter
@@ -19,5 +19,8 @@ public class Etudiant {
     private Long cin;
     private String ecole;
     private Date dateNaissance;
+
+    @ManyToMany(mappedBy = "etudiantList")
+    private Set<Reservation> reservationList = new HashSet<>();
 
 }

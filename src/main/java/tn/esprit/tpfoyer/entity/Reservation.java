@@ -2,7 +2,7 @@ package tn.esprit.tpfoyer.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.util.*;
 
 
 @Entity
@@ -13,9 +13,11 @@ import java.util.Date;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idReservation;
+    private String idReservation;
     private Date anneeUniversitaire;
     private Boolean estvalide;
+
+    @ManyToMany
+    private Set<Etudiant> etudiantList = new HashSet<Etudiant>();
 
 }
