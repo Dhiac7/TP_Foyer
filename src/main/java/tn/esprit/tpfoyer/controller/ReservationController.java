@@ -8,6 +8,7 @@ import tn.esprit.tpfoyer.entity.Reservation;
 import tn.esprit.tpfoyer.service.IReservationService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -50,6 +51,25 @@ public class ReservationController {
     @PutMapping("/annuler-reservation/{idReservation}")
     public Reservation annulerReservation(@PathVariable String idReservation) {
         return reservationService.desaffecterReservationFromChambre(idReservation);
+    }
+
+    @Operation(summary = "JPQL MEMBER OF", description = "Trouver les réservations d'un étudiant via MEMBER OF")
+    @GetMapping("/jpql/member-of/etudiant/{etudiant-id}")
+    public List<Reservation> getReservationsByEtudiant(@PathVariable("etudiant-id") Long etudiantId) {
+        return reservationService.getReservationsByEtudiantId(etudiantId);
+    }
+
+    @Operation(summary = "JPQL Double JOIN", description = "Trouver les réservations liées à un nom de bloc")
+    @GetMapping("/jpql/double-join/bloc/{nom-bloc}")
+    public List<Reservation> getReservationsByNomBloc(@PathVariable("nom-bloc") String nomBloc) {
+        return reservationService.getReservationsByNomBloc(nomBloc);
+    }
+
+    @Operation(summary = "JPQL GROUP BY", description = "Compter les réservations par chambre avec un seuil minimum")
+    @GetMapping("/jpql/group-by/chambres")
+    public List<Map<String, Object>> getReservationStatsByChambre(
+            @RequestParam(name = "minReservations", defaultValue = "1") Long minReservations) {
+        return reservationService.getReservationCountByChambre(minReservations);
     }
 
 }

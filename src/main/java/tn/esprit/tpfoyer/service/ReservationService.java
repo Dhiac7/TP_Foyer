@@ -2,17 +2,22 @@ package tn.esprit.tpfoyer.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.tpfoyer.entity.Chambre;
+import tn.esprit.tpfoyer.entity.Etudiant;
 import tn.esprit.tpfoyer.entity.Reservation;
+import tn.esprit.tpfoyer.repository.EtudiantRepository;
 import tn.esprit.tpfoyer.repository.ReservationRepository;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @AllArgsConstructor
 public class ReservationService implements IReservationService {
 
     ReservationRepository reservationRepository;
+    EtudiantRepository etudiantRepository;
 
 
     @Override
@@ -49,6 +54,35 @@ public class ReservationService implements IReservationService {
             chambre.getReservations().remove(reservation);
         }
         reservation.setChambre(null);*/
+    }
+
+    @Override
+    public List<Reservation> getReservationsByEtudiantId(Long etudiantId) {
+        Etudiant etudiant = etudiantRepository.findById(etudiantId).orElse(null);
+        if (etudiant == null) {
+            return List.of();
+        }
+        return reservationRepository.findReservationsByEtudiant(etudiant);
+    }
+
+    @Override
+    public List<Reservation> getReservationsByNomBloc(String nomBloc) {
+        return reservationRepository.findReservationsByNomBloc(nomBloc);
+    }
+
+    @Override
+    public List<Map<String, Object>> getReservationCountByChambre(Long minReservations) {
+        List<Object[]> rawStats = reservationRepository.countReservationsByChambre(minReservations);
+        List<Map<String, Object>> stats = new ArrayList<>();
+
+        for (Object[] row : rawStats) {
+            Map<String, Object> item = new HashMap<>();
+            item.put("numeroChambre", row[0]);
+            item.put("nombreReservations", row[1]);
+            stats.add(item);
+        }
+
+        return stats;
     }
 
 }
