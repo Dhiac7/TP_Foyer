@@ -2,7 +2,9 @@ package tn.esprit.tpfoyer.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.tpfoyer.entity.Bloc;
 import tn.esprit.tpfoyer.entity.Foyer;
+import tn.esprit.tpfoyer.repository.BlocRepository;
 import tn.esprit.tpfoyer.repository.FoyerRepository;
 
 import java.util.List;
@@ -13,6 +15,7 @@ public class FoyerService implements IFoyerService{
 
 
     FoyerRepository foyerRepository;
+    BlocRepository blocRepository;
 
     @Override
     public Foyer saveFoyer(Foyer foyer) {
@@ -38,4 +41,25 @@ public class FoyerService implements IFoyerService{
     public List<Foyer> getAllFoyer() {
         return foyerRepository.findAll();
     }
+
+    public Foyer addFoyerAndBlocAndAssign(Foyer foyer) {
+        // foyer contient déjà un ou plusieurs blocs dans son JSON
+        return foyerRepository.save(foyer);
+    }
+
+    public void assignBlocToFoyer(Long blocId, Long foyerId) {
+        Bloc bloc = blocRepository.findById(blocId).get();
+        Foyer foyer = foyerRepository.findById(foyerId).get();
+        // on set le fils dans le parent ou l’inverse selon ton mapping
+        bloc.setFoyer(foyer);
+        blocRepository.save(bloc);
+    }
+
+    public Bloc desaffecterBlocFromFoyer(Long blocId) {
+        Bloc bloc = blocRepository.findById(blocId).get();
+        bloc.setFoyer(null);
+        return blocRepository.save(bloc);
+    }
+
+
 }

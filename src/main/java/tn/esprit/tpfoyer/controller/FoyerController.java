@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.tpfoyer.entity.Bloc;
 import tn.esprit.tpfoyer.entity.Foyer;
 import tn.esprit.tpfoyer.service.IFoyerService;
 
@@ -46,4 +47,25 @@ public class FoyerController {
     public Foyer modifyFoyer(@RequestBody Foyer foyer) {
         return foyerService.updateFoyer(foyer);
     }
+
+
+    @Operation(summary = "Add a Foyer And Bloc", description = "Create a new Foyer and Bloc")
+    @PostMapping("/ajouter-foyer-et-bloc")
+    public Foyer addFoyerAndBloc(@RequestBody Foyer foyer) {
+        return foyerService.addFoyerAndBlocAndAssign(foyer);
+    }
+
+    @PutMapping("/affecter-bloc-foyer/{idBloc}/{idFoyer}")
+    public void assignBlocToFoyer(@PathVariable Long idBloc,
+                                  @PathVariable Long idFoyer) {
+        foyerService.assignBlocToFoyer(idBloc, idFoyer);
+    }
+
+    @PutMapping("/desaffecter-bloc-foyer/{idBloc}")
+    public Bloc desaffecterBlocFromFoyer(@PathVariable Long idBloc) {
+        return foyerService.desaffecterBlocFromFoyer(idBloc);
+    }
+
+
+
 }

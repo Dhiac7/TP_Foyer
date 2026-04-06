@@ -13,4 +13,12 @@ public interface IBlocService {
 
 
     List<Bloc> getAllBlocs();
+
+    List<Bloc> getBlocsSansFoyer();
+
+    List<Bloc> getBlocsByCapaciteSuperieure(Long capaciteMin);
+
+    List<Bloc> getBlocsByNomPrefix(String prefix);
+
+    List<Bloc> getBlocsByNomPrefixAndCapaciteSuperieure(String prefix, Long capaciteMin);
 }

@@ -23,6 +23,31 @@ public class BlocController {
         return blocService.getAllBlocs();
     }
 
+    @Operation(summary = "Get Blocs without Foyer", description = "Retrieve the list of Blocs not assigned to any Foyer")
+    @GetMapping("/retrieve-blocs-sans-foyer")
+    public List<Bloc> retrieveBlocsSansFoyer() {
+        return blocService.getBlocsSansFoyer();
+    }
+
+    @Operation(summary = "Get Blocs by minimum capacity", description = "Retrieve Blocs with capacity greater than a given value")
+    @GetMapping("/retrieve-blocs-by-capacite-superieure/{capacite-min}")
+    public List<Bloc> retrieveBlocsByCapaciteSuperieure(@PathVariable("capacite-min") Long capaciteMin) {
+        return blocService.getBlocsByCapaciteSuperieure(capaciteMin);
+    }
+
+    @Operation(summary = "Get Blocs by name prefix", description = "Retrieve Blocs with names starting with a given prefix")
+    @GetMapping("/retrieve-blocs-by-nom-prefix/{prefix}")
+    public List<Bloc> retrieveBlocsByNomPrefix(@PathVariable String prefix) {
+        return blocService.getBlocsByNomPrefix(prefix);
+    }
+
+    @Operation(summary = "Get Blocs by name prefix and minimum capacity", description = "Retrieve Blocs matching both name prefix and capacity criteria")
+    @GetMapping("/retrieve-blocs-by-nom-prefix-and-capacite-superieure/{prefix}/{capacite-min}")
+    public List<Bloc> retrieveBlocsByNomPrefixAndCapaciteSuperieure(@PathVariable String prefix,
+                                                                     @PathVariable("capacite-min") Long capaciteMin) {
+        return blocService.getBlocsByNomPrefixAndCapaciteSuperieure(prefix, capaciteMin);
+    }
+
     @Operation(summary = "Get Bloc by ID", description = "Retrieve a single Bloc by its ID")
     @GetMapping("/retrieve-bloc/{bloc-id}")
     public Bloc retrieveBloc(@PathVariable("bloc-id") Long blocId) {
@@ -46,4 +71,6 @@ public class BlocController {
     public Bloc modifyBloc(@RequestBody Bloc bloc) {
         return blocService.saveOrUpdateBloc(bloc);
     }
+
+
 }

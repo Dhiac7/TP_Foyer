@@ -2,6 +2,7 @@ package tn.esprit.tpfoyer.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.tpfoyer.entity.Chambre;
 import tn.esprit.tpfoyer.entity.Reservation;
 import tn.esprit.tpfoyer.repository.ReservationRepository;
 
@@ -36,6 +37,18 @@ public class ReservationService implements IReservationService {
 
     @Override
     public List<Reservation> getAllReservations() {
-        return List.of();
+        return reservationRepository.findAll();
     }
+
+    public Reservation desaffecterReservationFromChambre(String reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId).get();
+        reservation.setChambre(null);   // annuler la réservation côté relation
+        return reservationRepository.save(reservation);
+        /*Chambre chambre = reservation.getChambre();
+        if (chambre != null) {
+            chambre.getReservations().remove(reservation);
+        }
+        reservation.setChambre(null);*/
+    }
+
 }

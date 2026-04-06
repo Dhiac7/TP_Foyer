@@ -46,4 +46,10 @@ public class ReservationController {
     public Reservation modifyReservation(@RequestBody Reservation reservation) {
         return reservationService.updateReservation(reservation);
     }
+
+    @PutMapping("/annuler-reservation/{idReservation}")
+    public Reservation annulerReservation(@PathVariable String idReservation) {
+        return reservationService.desaffecterReservationFromChambre(idReservation);
+    }
+
 }

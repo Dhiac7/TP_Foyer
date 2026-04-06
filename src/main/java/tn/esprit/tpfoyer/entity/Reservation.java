@@ -20,4 +20,7 @@ public class Reservation {
     @ManyToMany
     private Set<Etudiant> etudiantList = new HashSet<Etudiant>();
 
+    @ManyToOne
+    private Chambre chambre;
+
 }

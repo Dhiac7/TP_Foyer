@@ -1,6 +1,7 @@
 package tn.esprit.tpfoyer.service;
 
 import tn.esprit.tpfoyer.entity.Chambre;
+import tn.esprit.tpfoyer.entity.TypeChambre;
 
 import java.util.List;
 
@@ -14,4 +15,12 @@ public interface IChambreService {
     Chambre updateChambre(Chambre chambre);
 
     List<Chambre> getAllChambres();
+
+    List<Chambre> getChambresByType(TypeChambre typeC);
+
+    Chambre getChambreByNumero(Long numeroChambre);
+
+    Chambre addChambreAndReservationAndAssign(Chambre chambre);
+
+    void assignReservationToChambre(String reservationId, Long chambreId);
 }

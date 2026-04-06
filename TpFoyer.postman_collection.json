@@ -1,0 +1,503 @@
+{
+  "info": {
+    "name": "TpFoyer API",
+    "description": "Collection Postman pour tester tous les endpoints du projet TpFoyer.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8089/TpFoyer"
+    },
+    {
+      "key": "blocId",
+      "value": "1"
+    },
+    {
+      "key": "chambreId",
+      "value": "1"
+    },
+    {
+      "key": "etudiantId",
+      "value": "1"
+    },
+    {
+      "key": "foyerId",
+      "value": "1"
+    },
+    {
+      "key": "reservationId",
+      "value": "RES-2026-001"
+    },
+    {
+      "key": "universiteId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Bloc",
+      "item": [
+        {
+          "name": "Get All Blocs",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bloc/retrieve-all-blocs"
+          }
+        },
+        {
+          "name": "Get Bloc By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bloc/retrieve-bloc/{{blocId}}"
+          }
+        },
+        {
+          "name": "Add Bloc",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomBloc\": \"Bloc A\",\n  \"capaciteBloc\": 120\n}"
+            },
+            "url": "{{baseUrl}}/bloc/add-bloc"
+          }
+        },
+        {
+          "name": "Modify Bloc",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idBloc\": {{blocId}},\n  \"nomBloc\": \"Bloc A Modifie\",\n  \"capaciteBloc\": 150\n}"
+            },
+            "url": "{{baseUrl}}/bloc/modify-bloc"
+          }
+        },
+        {
+          "name": "Remove Bloc",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/bloc/remove-bloc/{{blocId}}"
+          }
+        },
+        {
+          "name": "Get Blocs Sans Foyer",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bloc/retrieve-blocs-sans-foyer"
+          }
+        },
+        {
+          "name": "Get Blocs Capacite > 30",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bloc/retrieve-blocs-by-capacite-superieure/30"
+          }
+        },
+        {
+          "name": "Get Blocs Nom Commence Par A",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bloc/retrieve-blocs-by-nom-prefix/A"
+          }
+        },
+        {
+          "name": "Get Blocs Nom A Et Capacite > 30",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/bloc/retrieve-blocs-by-nom-prefix-and-capacite-superieure/A/30"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chambre",
+      "item": [
+        {
+          "name": "Get All Chambres",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chambre/retrieve-all-chambres"
+          }
+        },
+        {
+          "name": "Get Chambre By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chambre/retrieve-chambre/{{chambreId}}"
+          }
+        },
+        {
+          "name": "Add Chambre",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroChambre\": 101,\n  \"typeC\": \"DOUBLE\",\n  \"bloc\": {\n    \"idBloc\": {{blocId}}\n  }\n}"
+            },
+            "url": "{{baseUrl}}/chambre/add-chambre"
+          }
+        },
+        {
+          "name": "Modify Chambre",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idChambre\": {{chambreId}},\n  \"numeroChambre\": 102,\n  \"typeC\": \"TRIPLE\",\n  \"bloc\": {\n    \"idBloc\": {{blocId}}\n  }\n}"
+            },
+            "url": "{{baseUrl}}/chambre/modify-chambre"
+          }
+        },
+        {
+          "name": "Remove Chambre",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/chambre/remove-chambre/{{chambreId}}"
+          }
+        },
+        {
+          "name": "Add Chambre Et Reservation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"numeroChambre\": 201,\n  \"typeC\": \"SIMPLE\",\n  \"reservation\": [\n    {\n      \"idReservation\": \"{{reservationId}}\",\n      \"anneeUniversitaire\": \"2026-09-01T00:00:00.000+00:00\",\n      \"estvalide\": true\n    }\n  ]\n}"
+            },
+            "url": "{{baseUrl}}/chambre/ajouter-chambre-et-reservation"
+          }
+        },
+        {
+          "name": "Affecter Reservation A Chambre",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/chambre/affecter-reservation-chambre/{{reservationId}}/{{chambreId}}"
+          }
+        },
+        {
+          "name": "Get Chambres By Type DOUBLE",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chambre/retrieve-chambres-by-type/DOUBLE"
+          }
+        },
+        {
+          "name": "Get Chambre By Numero",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/chambre/retrieve-chambre-by-numero/101"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Etudiant",
+      "item": [
+        {
+          "name": "Get All Etudiants",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/etudiant/retrieve-all-etudiants"
+          }
+        },
+        {
+          "name": "Get Etudiant By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/etudiant/retrieve-etudiant/{{etudiantId}}"
+          }
+        },
+        {
+          "name": "Add Etudiant",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomEt\": \"Ben Ali\",\n  \"prenomEt\": \"Sami\",\n  \"cin\": 12345678,\n  \"ecole\": \"ESPRIT\",\n  \"dateNaissance\": \"2002-05-18T00:00:00.000+00:00\"\n}"
+            },
+            "url": "{{baseUrl}}/etudiant/add-etudiant"
+          }
+        },
+        {
+          "name": "Modify Etudiant",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idEtudiant\": {{etudiantId}},\n  \"nomEt\": \"Ben Ali\",\n  \"prenomEt\": \"Sami Modifie\",\n  \"cin\": 12345678,\n  \"ecole\": \"ESPRIT\",\n  \"dateNaissance\": \"2002-05-18T00:00:00.000+00:00\"\n}"
+            },
+            "url": "{{baseUrl}}/etudiant/modify-etudiant"
+          }
+        },
+        {
+          "name": "Remove Etudiant",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/etudiant/remove-etudiant/{{etudiantId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Foyer",
+      "item": [
+        {
+          "name": "Get All Foyers",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/foyer/retrieve-all-foyers"
+          }
+        },
+        {
+          "name": "Get Foyer By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/foyer/retrieve-foyer/{{foyerId}}"
+          }
+        },
+        {
+          "name": "Add Foyer",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomFoyer\": \"Foyer Central\",\n  \"capaciteFoyer\": 500\n}"
+            },
+            "url": "{{baseUrl}}/foyer/add-foyer"
+          }
+        },
+        {
+          "name": "Modify Foyer",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idFoyer\": {{foyerId}},\n  \"nomFoyer\": \"Foyer Central Modifie\",\n  \"capaciteFoyer\": 550\n}"
+            },
+            "url": "{{baseUrl}}/foyer/modify-foyer"
+          }
+        },
+        {
+          "name": "Remove Foyer",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/foyer/remove-foyer/{{foyerId}}"
+          }
+        },
+        {
+          "name": "Ajouter Foyer Et Bloc",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomFoyer\": \"Foyer Sud\",\n  \"capaciteFoyer\": 300,\n  \"blocs\": [\n    {\n      \"nomBloc\": \"Bloc B\",\n      \"capaciteBloc\": 100\n    }\n  ]\n}"
+            },
+            "url": "{{baseUrl}}/foyer/ajouter-foyer-et-bloc"
+          }
+        },
+        {
+          "name": "Affecter Bloc Au Foyer",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/foyer/affecter-bloc-foyer/{{blocId}}/{{foyerId}}"
+          }
+        },
+        {
+          "name": "Desaffecter Bloc Du Foyer",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/foyer/desaffecter-bloc-foyer/{{blocId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reservation",
+      "item": [
+        {
+          "name": "Get All Reservations",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reservation/retrieve-all-reservations"
+          }
+        },
+        {
+          "name": "Get Reservation By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reservation/retrieve-reservation/{{reservationId}}"
+          }
+        },
+        {
+          "name": "Add Reservation",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idReservation\": \"{{reservationId}}\",\n  \"anneeUniversitaire\": \"2026-09-01T00:00:00.000+00:00\",\n  \"estvalide\": true\n}"
+            },
+            "url": "{{baseUrl}}/reservation/add-reservation"
+          }
+        },
+        {
+          "name": "Modify Reservation",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idReservation\": \"{{reservationId}}\",\n  \"anneeUniversitaire\": \"2026-09-01T00:00:00.000+00:00\",\n  \"estvalide\": false\n}"
+            },
+            "url": "{{baseUrl}}/reservation/modify-reservation"
+          }
+        },
+        {
+          "name": "Remove Reservation",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/reservation/remove-reservation/{{reservationId}}"
+          }
+        },
+        {
+          "name": "Annuler Reservation",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/reservation/annuler-reservation/{{reservationId}}"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Universite",
+      "item": [
+        {
+          "name": "Get All Universites",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/universite/retrieve-all-universites"
+          }
+        },
+        {
+          "name": "Get Universite By Id",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/universite/retrieve-universite/{{universiteId}}"
+          }
+        },
+        {
+          "name": "Add Universite",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomUniversite\": \"Universite de Tunis\",\n  \"addresse\": \"Tunis\",\n  \"foyer\": {\n    \"idFoyer\": {{foyerId}}\n  }\n}"
+            },
+            "url": "{{baseUrl}}/universite/add-universite"
+          }
+        },
+        {
+          "name": "Modify Universite",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUniversite\": {{universiteId}},\n  \"nomUniversite\": \"Universite de Tunis Modifiee\",\n  \"addresse\": \"Ariana\",\n  \"foyer\": {\n    \"idFoyer\": {{foyerId}}\n  }\n}"
+            },
+            "url": "{{baseUrl}}/universite/modify-universite"
+          }
+        },
+        {
+          "name": "Remove Universite",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/universite/remove-universite/{{universiteId}}"
+          }
+        }
+      ]
+    }
+  ]
+}

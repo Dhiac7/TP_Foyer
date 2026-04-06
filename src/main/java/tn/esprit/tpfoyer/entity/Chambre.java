@@ -20,10 +20,13 @@ public class Chambre {
     @ManyToOne
     private Bloc bloc;
 
-    @OneToMany
+    @OneToMany(mappedBy = "chambre", cascade = CascadeType.ALL)
     private Set<Reservation> reservation;
 
     @Enumerated(EnumType.STRING)
     private TypeChambre typeC;
 
+    public Set<Reservation> getReservations() {
+        return reservation;
+    }
 }

@@ -14,4 +14,5 @@ public interface IReservationService {
     Reservation updateReservation(Reservation reservation);
 
     List<Reservation> getAllReservations();
+    Reservation desaffecterReservationFromChambre(String reservationId);
 }
