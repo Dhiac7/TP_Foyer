@@ -1,4 +1,5 @@
 package tn.esprit.tpfoyer.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,9 +19,11 @@ public class Chambre {
     private Long numeroChambre;
 
     @ManyToOne
+    @JsonIgnore
     private Bloc bloc;
 
     @OneToMany(mappedBy = "chambre", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Reservation> reservation;
 
     @Enumerated(EnumType.STRING)

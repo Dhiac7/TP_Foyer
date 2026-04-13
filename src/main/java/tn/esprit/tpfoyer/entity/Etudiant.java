@@ -1,4 +1,5 @@
 package tn.esprit.tpfoyer.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +22,7 @@ public class Etudiant {
     private Date dateNaissance;
 
     @ManyToMany(mappedBy = "etudiantList")
+    @JsonIgnore
     private Set<Reservation> reservationList = new HashSet<>();
 
 }

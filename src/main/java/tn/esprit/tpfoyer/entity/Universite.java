@@ -1,4 +1,5 @@
 package tn.esprit.tpfoyer.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,5 +18,6 @@ public class Universite {
     private String addresse;
 
     @OneToOne
+    @JsonIgnore
     private Foyer foyer;
 }

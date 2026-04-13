@@ -1,6 +1,8 @@
 package tn.esprit.tpfoyer.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.tpfoyer.entity.Bloc;
 import tn.esprit.tpfoyer.entity.Foyer;
@@ -9,6 +11,7 @@ import tn.esprit.tpfoyer.repository.FoyerRepository;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @AllArgsConstructor
 public class FoyerService implements IFoyerService{
@@ -38,7 +41,9 @@ public class FoyerService implements IFoyerService{
     }
 
     @Override
+    @Scheduled(cron = "0 15,45 8 * * MON")
     public List<Foyer> getAllFoyer() {
+        log.info("Foyerrr");
         return foyerRepository.findAll();
     }
 

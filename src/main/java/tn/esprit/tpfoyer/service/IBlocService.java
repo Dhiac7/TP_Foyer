@@ -1,5 +1,6 @@
 package tn.esprit.tpfoyer.service;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import tn.esprit.tpfoyer.entity.Bloc;
 
 import java.util.List;
@@ -10,7 +11,6 @@ public interface IBlocService {
     void deleteBloc(Long id);
 
     Bloc findBlocById(Long id);
-
 
     List<Bloc> getAllBlocs();
 

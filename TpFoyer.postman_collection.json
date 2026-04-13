@@ -30,6 +30,14 @@
       "value": "RES-2026-001"
     },
     {
+      "key": "nomBloc",
+      "value": "Bloc A"
+    },
+    {
+      "key": "minReservations",
+      "value": "1"
+    },
+    {
       "key": "universiteId",
       "value": "1"
     }
@@ -435,6 +443,27 @@
           "request": {
             "method": "PUT",
             "url": "{{baseUrl}}/reservation/annuler-reservation/{{reservationId}}"
+          }
+        },
+        {
+          "name": "JPQL MEMBER OF - Reservations By Etudiant",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reservation/jpql/member-of/etudiant/{{etudiantId}}"
+          }
+        },
+        {
+          "name": "JPQL Double JOIN - Reservations By Bloc",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reservation/jpql/double-join/bloc/{{nomBloc}}"
+          }
+        },
+        {
+          "name": "JPQL GROUP BY - Count Reservations By Chambre",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reservation/jpql/group-by/chambres?minReservations={{minReservations}}"
           }
         }
       ]

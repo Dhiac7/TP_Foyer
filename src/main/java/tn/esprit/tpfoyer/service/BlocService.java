@@ -1,11 +1,14 @@
 package tn.esprit.tpfoyer.service;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.tpfoyer.entity.Bloc;
 import tn.esprit.tpfoyer.repository.BlocRepository;
 
 import java.util.List;
+@Slf4j
 @Service
 @AllArgsConstructor
 public class BlocService implements IBlocService {
@@ -23,7 +26,9 @@ public class BlocService implements IBlocService {
     }
 
     @Override
+    @Scheduled(cron = "*/15 * 8-12 * * MON-FRI")
     public List<Bloc> getAllBlocs() {
+        log.info("getAllBlocs");
         return blocRepository.findAll();
     }
 
